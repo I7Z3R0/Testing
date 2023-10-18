@@ -1,1 +1,26 @@
 
+config
+vlan 812
+name QUARANTINE
+ip address 10.254.228.254 255.255.255.0
+dhcp-server
+quit
+vlan 813
+name REMEDIATION
+ip address 10.254.229.254 255.255.255.0
+dhcp-server
+quit
+dhcp-server pool Quarantine
+default-router 10.254.228.254
+dns-server 10.100.0.22,192.168.21.176,8.8.8.8
+domain-name upl.com
+network 10.254.228.0 255.255.255.0
+range 10.254.228.20 10.254.228.200
+exit 
+dhcp-server pool Remediation
+default-router 10.254.229.254
+dns-server 10.100.0.22,192.168.21.176,8.8.8.8
+domain-name upl.com
+network 10.254.229.0 255.255.255.0
+range 10.254.229.10 10.254.229.200
+exit
