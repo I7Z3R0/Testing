@@ -1,26 +1,704 @@
-
-config
-vlan 812
-name QUARANTINE
-ip address 10.254.228.254 255.255.255.0
-dhcp-server
-quit
-vlan 813
-name REMEDIATION
-ip address 10.254.229.254 255.255.255.0
-dhcp-server
-quit
-dhcp-server pool Quarantine
-default-router 10.254.228.254
-dns-server 10.100.0.22,192.168.21.176,8.8.8.8
-domain-name upl.com
-network 10.254.228.0 255.255.255.0
-range 10.254.228.20 10.254.228.200
-exit 
-dhcp-server pool Remediation
-default-router 10.254.229.254
-dns-server 10.100.0.22,192.168.21.176,8.8.8.8
-domain-name upl.com
-network 10.254.229.0 255.255.255.0
-range 10.254.229.10 10.254.229.200
+address-object ipv4 Quarantine-10.254.104.0
+    name Quarantine-10.254.104.0
+    zone LAN
+    network 10.254.104.0 255.255.255.0
+    exit
+address-object ipv4 Remediation-10.254.105.0
+    name Remediation-10.254.105.0
+    zone LAN
+    network 10.254.105.0 255.255.255.0
+    exit
+address-object ipv4 R-192.168.21.176-192.168.21.177
+    name R-192.168.21.176-192.168.21.177
+    zone LAN
+    range 192.168.21.176 192.168.21.177
+    exit    
+address-object ipv4 R-10.100.0.21-10.100.0.22
+    name R-10.100.0.21-10.100.0.22
+    zone LAN
+    range 10.100.0.21 10.100.0.22
+    exit    
+address-object ipv4 R-10.100.0.201-10.100.0.203
+    name R-10.100.0.201-10.100.0.203
+    zone LAN
+    range 10.100.0.201 10.100.0.203
+    exit    
+address-object ipv4 R-172.23.10.27-172.23.10.30
+    name R-172.23.10.27-172.23.10.30
+    zone LAN
+    range 172.23.10.27 172.23.10.30
+    exit
+address-object ipv4 H-192.168.28.71
+    name H-192.168.28.71
+    zone LAN
+    host 192.168.28.71
+    exit
+address-object ipv4 H-192.168.32.64
+    name H-192.168.32.64
+    zone LAN
+    host 192.168.32.64
+    exit
+address-object ipv4 H-10.23.57.199
+    name H-10.23.57.199
+    zone LAN
+    host 10.23.57.199
+    exit
+address-object ipv4 N-8.36.116.0
+    name N-8.36.116.0
+    zone WAN
+    network 8.36.116.0 255.255.255.0
+    exit
+address-object ipv4 N-8.39.144.0
+    name N-8.39.144.0
+    zone WAN
+    network 8.39.144.0 255.255.255.0
+    exit    
+address-object ipv4 N-31.186.239.0
+    name N-31.186.239.0
+    zone WAN
+    network 31.186.239.0 255.255.255.0
+    exit
+address-object ipv4 N-74.217.93.0
+    name N-74.217.93.0
+    zone WAN
+    network 74.217.93.0 255.255.255.0
+    exit
+address-object ipv4 N-103.219.79.0
+    name N-103.219.79.0
+    zone WAN
+    network 103.219.79.0 255.255.255.0
+    exit
+address-object ipv4 N-163.116.128.0
+    name N-163.116.128.0
+    zone WAN
+    network 163.116.128.0 255.255.128.0
+    exit
+address-object fqdn dns.google.com
+name dns.google.com
+zone WAN
+domain dns.google.com
+no dns-ttl
 exit
+address-object fqdn dns.google
+name dns.google
+zone WAN
+domain dns.google
+no dns-ttl
+exit
+address-object ipv4 H-8.8.8.8
+    name H-8.8.8.8
+    zone WAN
+    host 8.8.8.8
+    exit
+address-object ipv4 H-8.8.4.4
+    name H-8.8.4.4
+    zone WAN
+    host 8.8.4.4
+    exit
+address-object fqdn tcpg.upl-ltd.comgateway-uplgs.eu.goskope.com
+name tcpg.upl-ltd.comgateway-uplgs.eu.goskope.com
+zone WAN
+domain tcpg.upl-ltd.comgateway-uplgs.eu.goskope.com
+no dns-ttl
+exit
+address-object fqdn gateway-backup-uplgs.eu.goskope.com
+name gateway-backup-uplgs.eu.goskope.com
+zone WAN
+domain gateway-backup-uplgs.eu.goskope.com
+no dns-ttl
+exit
+address-object fqdn addon-uplgs.eu.goskope.com
+name addon-uplgs.eu.goskope.com
+zone WAN
+domain addon-uplgs.eu.goskope.com
+no dns-ttl
+exit
+address-object fqdn download-uplgs.eu.goskope.com
+name download-uplgs.eu.goskope.com
+zone WAN
+domain download-uplgs.eu.goskope.com
+no dns-ttl
+exit
+address-object fqdn achecker-uplgs.eu.goskope.com
+name achecker-uplgs.eu.goskope.com
+zone WAN
+domain achecker-uplgs.eu.goskope.com
+no dns-ttl
+exit
+address-object fqdn gev2uc.manage.trendmicro.com
+name gev2uc.manage.trendmicro.com
+zone WAN
+domain gev2uc.manage.trendmicro.com
+no dns-ttl
+exit
+address-object fqdn cloudone.trendmicro.com
+name cloudone.trendmicro.com
+zone WAN
+domain cloudone.trendmicro.com
+no dns-ttl
+exit
+address-object fqdn *.trendmicro.com
+name *.trendmicro.com
+zone WAN
+domain *.trendmicro.com
+no dns-ttl
+exit
+address-object fqdn *.manage.trendmicro.com
+name *.manage.trendmicro.com
+zone WAN
+domain *.manage.trendmicro.com
+no dns-ttl
+exit
+address-object fqdn *.microsoft.com
+name *.microsoft.com
+zone WAN
+domain *.microsoft.com
+no dns-ttl
+exit
+address-object fqdn *.azureedge.net
+name *.azureedge.net
+zone WAN
+domain *.azureedge.net
+no dns-ttl
+exit
+address-object fqdn *.windows.com
+name *.windows.com
+zone WAN
+domain *.windows.com
+no dns-ttl
+exit
+address-object fqdn *.teamviewer.com
+name *.teamviewer.com
+zone WAN
+domain *.teamviewer.com
+no dns-ttl
+exit
+address-object fqdn *.windows.net
+name *.windows.net
+zone WAN
+domain *.windows.net
+no dns-ttl
+exit
+address-object fqdn *.upl-ltd.com
+name *.upl-ltd.com
+zone WAN
+domain *.upl-ltd.com
+no dns-ttl
+exit
+address-object fqdn *.google.com
+name *.google.com
+zone WAN
+domain *.google.com
+no dns-ttl
+exit
+address-object fqdn *.uplonline.com
+name *.uplonline.com
+zone WAN
+domain *.uplonline.com
+no dns-ttl
+exit
+address-object fqdn *.goskope.com
+name *.goskope.com
+zone WAN
+domain *.goskope.com
+no dns-ttl
+exit
+address-object fqdn reportingcollector.upl-ltd.com
+name reportingcollector.upl-ltd.com
+zone WAN
+domain reportingcollector.upl-ltd.com
+no dns-ttl
+exit
+address-object fqdn Uglbcv01.uplonline.com
+name Uglbcv01.uplonline.com
+zone WAN
+domain Uglbcv01.uplonline.com
+no dns-ttl
+exit
+address-object fqdn Ummumcv01.uplonline.com
+name Ummumcv01.uplonline.com
+zone WAN
+domain Ummumcv01.uplonline.com
+no dns-ttl
+exit
+commit
+
+address-group ipv4 Forescout-Subnet
+    name Forescout-Subnet
+    address-object ipv4 Remediation-10.254.105.0
+    address-object ipv4 Quarantine-10.254.104.0
+    exit
+address-group ipv4 UPL-AD-Subnet
+    name UPL-AD-Subnet
+    address-object ipv4 R-10.100.0.201-10.100.0.203
+    address-object ipv4 R-172.23.10.27-172.23.10.30
+    address-object ipv4 H-192.168.28.71
+    address-object ipv4 H-10.23.57.199
+    exit
+address-group ipv4 UPL-DNS-Servers
+    name UPL-DNS-Servers
+    address-object ipv4 R-192.168.21.176-192.168.21.177
+    address-object ipv4 R-10.100.0.21-10.100.0.22
+    exit
+address-group ipv4 Google-DNS
+    name Google-DNS
+    address-object ipv4 H-8.8.8.8
+    address-object ipv4 H-8.8.4.4
+    address-object fqdn dns.google.com
+    address-object fqdn dns.google
+    exit
+address-group ipv4 COMMVAULT
+    name COMMVAULT
+    address-object fqdn Uglbcv01.uplonline.com
+    address-object fqdn Ummumcv01.uplonline.com
+    exit
+address-group ipv6 Forescout-Public
+    name Forescout-Public
+    address-object fqdn *.teamviewer.com
+    address-object fqdn *.goskope.com
+    address-object fqdn *.uplonline.com
+    address-object fqdn *.upl-ltd.com
+    address-object ipv4 N-163.116.128.0
+    address-object ipv4 N-103.219.79.0
+    address-object ipv4 N-74.217.93.0
+    address-object ipv4 N-31.186.239.0
+    address-object ipv4 N-8.39.144.0
+    address-object ipv4 N-8.36.116.0
+    address-object fqdn *.windows.net
+    address-object fqdn *.windows.com
+    address-object fqdn *.azureedge.net
+    address-object fqdn *.microsoft.com
+    address-object fqdn *.manage.trendmicro.com
+    address-object fqdn *.trendmicro.com
+    address-object fqdn cloudone.trendmicro.com
+    address-object fqdn gev2uc.manage.trendmicro.com
+    address-object fqdn achecker-uplgs.eu.goskope.com
+    address-object fqdn download-uplgs.eu.goskope.com
+    address-object fqdn addon-uplgs.eu.goskope.com
+    address-object fqdn gateway-backup-uplgs.eu.goskope.com
+    address-object fqdn tcpg.upl-ltd.comgateway-uplgs.eu.goskope.com
+    address-object fqdn *.google.com
+    exit
+
+service-object TCP-10003-10006 TCP 10003 10006
+service-object TCP-443 TCP 443 443
+service-object "DNS (Name Service) TCP" TCP 53 53
+service-object "DNS (Name Service) UDP" UDP 53 53
+service-object TCP-389 TCP 389 389
+service-object TCP-34390 TCP 34390 34390
+service-object TCP-8400-8403 TCP 8400 8403
+service-group "DNS (Name Service)"
+    service-object "DNS (Name Service) UDP"
+    service-object "DNS (Name Service) TCP"
+    exit
+service-group "DNS-HTTPS"
+    service-group "DNS (Name Service)"
+    service-object TCP-443
+    exit
+commit
+
+access-rule ipv4 from LAN to LAN action allow source address group Forescout-Subnet service group "DNS (Name Service)" destination address group UPL-DNS-Servers
+    name Forescout-1
+    enable
+    from LAN
+    to LAN
+    action allow
+    source address group Forescout-Subnet
+    source port any
+    service group "DNS (Name Service)"
+    destination address group UPL-DNS-Servers
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 7
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to LAN action allow source address group Forescout-Subnet service name TCP-389 destination address name R-192.168.21.176-192.168.21.177
+    name Forescout-2
+    enable
+    from LAN
+    to LAN
+    action allow
+    source address group Forescout-Subnet
+    source port any
+    service name TCP-389
+    destination address name R-192.168.21.176-192.168.21.177
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 8
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to LAN action allow source address group Forescout-Subnet service name TCP-443 destination address group UPL-AD-Subnet
+    name Forescout-3
+    enable
+    from LAN
+    to LAN
+    action allow
+    source address group Forescout-Subnet
+    source port any
+    service name TCP-443
+    destination address group UPL-AD-Subnet
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 9
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to LAN action allow source address group Forescout-Subnet service name TCP-10003-10006 destination address group UPL-AD-Subnet
+    name Forescout-4
+    enable
+    from LAN
+    to LAN
+    action allow
+    source address group Forescout-Subnet
+    source port any
+    service name TCP-10003-10006
+    destination address group UPL-AD-Subnet
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 10
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to LAN action allow source address group UPL-AD-Subnet destination address group Forescout-Subnet
+    name Forescout-5
+    enable
+    from LAN
+    to LAN
+    action allow
+    source address group UPL-AD-Subnet
+    source port any
+    service any
+    destination address group Forescout-Subnet
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 11
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to WAN action allow source address name Remediation-10.254.105.0 service group DNS-HTTPS destination address group Google-DNS
+    name Forescout-6
+    enable
+    from LAN
+    to WAN
+    action allow
+    source address name Remediation-10.254.105.0
+    source port any
+    service group DNS-HTTPS
+    destination address group Google-DNS
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 12
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to WAN action allow source address name Remediation-10.254.105.0 service name TCP-443 destination address group Forescout-Public
+    name Forescout-7
+    enable
+    from LAN
+    to WAN
+    action allow
+    source address name Remediation-10.254.105.0
+    source port any
+    service name TCP-443
+    destination address group Forescout-Public
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 13
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to WAN action allow source address name Remediation-10.254.105.0 service name TCP-34390 destination address name reportingcollector.upl-ltd.com
+    name Forescout-8
+    enable
+    from LAN
+    to WAN
+    action allow
+    source address name Remediation-10.254.105.0
+    source port any
+    service name TCP-34390
+    destination address name reportingcollector.upl-ltd.com
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 14
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to LAN action allow source address name Remediation-10.254.105.0 service name TCP-443 destination address name H-192.168.32.64
+    name Forescout-9
+    enable
+    from LAN
+    to LAN
+    action allow
+    source address name Remediation-10.254.105.0
+    source port any
+    service name TCP-443
+    destination address name H-192.168.32.64
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 15
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to WAN action allow source address name Remediation-10.254.105.0 service name TCP-8400-8403 destination address group COMMVAULT
+    name Forescout-10
+    enable
+    from LAN
+    to WAN
+    action allow
+    source address name Remediation-10.254.105.0
+    source port any
+    service name TCP-8400-8403
+    destination address group COMMVAULT
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 16
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+access-rule ipv4 from LAN to any action deny source address group Forescout-Subnet
+    name Forescout-11
+    enable
+    from LAN
+    to any
+    action deny
+    source address group Forescout-Subnet
+    source port any
+    service any
+    destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    fragments
+    logging
+    no sip
+    no h323
+    no flow-reporting
+    no botnet-filter
+    no geo-ip-filter
+    no packet-monitoring
+    no management
+    max-connections 100
+    priority manual 17
+    tcp timeout 15
+    no tcp urgent
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    dpi
+    dpi-ssl client
+    dpi-ssl server
+    quality-of-service dscp preserve
+    no quality-of-service class-of-service
+    exit
+commit
+    
+
+
+
+
+
+
+
