@@ -1,1 +1,29 @@
-
+vlan 812
+name QUARANTINE
+exit
+interface Vlan812
+ip address 10.254.200.254 255.255.255.0
+exit
+vlan 813
+name Remediation
+exit
+interface Vlan813
+ip address 10.254.201.254 255.255.255.0
+exit
+service dhcp
+ip dhcp pool QUARANTINE
+default-router 10.254.200.254
+network 10.254.200.0 255.255.255.0
+domain-name upl.com
+dns-server 10.100.0.22 192.168.21.176 8.8.8.8
+exit
+ip dhcp pool Remediation
+default-router 10.254.201.254
+network 10.254.201.0 255.255.255.0
+domain-name upl.com
+dns-server 10.100.0.22 192.168.21.176 8.8.8.8
+exit
+ip dhcp excluded-address 10.254.200.0 10.254.200.10
+ip dhcp excluded-address 10.254.200.250 10.254.200.254
+ip dhcp excluded-address 10.254.201.0 10.254.201.10
+ip dhcp excluded-address 10.254.201.250 10.254.201.254
