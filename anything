@@ -1,3 +1,184 @@
+config system interface
+edit "Quarantine"
+        set vdom "root"
+        set ip 10.254.126.254 255.255.255.0
+	set allowaccess ping
+        set device-identification enable
+        set role lan
+        set snmp-index 9
+        set interface "internal"
+        set vlanid 812
+    next
+edit "Remediation"
+        set vdom "root"
+        set ip 10.254.127.254 255.255.255.0
+        set allowaccess ping
+        set device-identification enable
+        set role lan
+        set snmp-index 10
+        set interface "internal"
+        set vlanid 813
+    next
+end
+config system dhcp server
+edit 5
+        set default-gateway 10.254.126.254
+        set netmask 255.255.255.0
+        set interface "Quarantine"
+        config ip-range
+            edit 1
+                set start-ip 10.254.126.20
+                set end-ip 10.254.126.240
+            next
+        end
+        set dns-server1 192.168.21.176
+        set dns-server2 10.100.0.22
+        set dns-server3 8.8.8.8
+    next
+    edit 6
+        set default-gateway 10.254.127.254
+        set netmask 255.255.255.0
+        set interface "Remediation"
+        config ip-range
+            edit 1
+                set start-ip 10.254.127.20
+                set end-ip 10.254.127.240
+            next
+        end
+        set dns-server1 192.168.21.176
+        set dns-server2 10.100.0.22
+        set dns-server3 8.8.8.8
+    next
+end
+config firewall address
+edit "N-10.254.126.0/24"
+        set subnet 10.254.126.0 255.255.255.0
+    next
+    edit "N-10.254.127.0/24"
+        set subnet 10.254.127.0 255.255.255.0
+    next
+edit "*.goskope.com"
+        set type fqdn
+        set fqdn "*.goskope.com"
+    next
+    edit "*.google.com"
+        set type fqdn
+        set fqdn "*.google.com"
+    next
+    edit "*.trendmicro.com"
+        set type fqdn
+        set fqdn "*.trendmicro.com"
+    next
+    edit "*.azureedge.net"
+        set type fqdn
+        set fqdn "*.azureedge.net"
+    next
+    edit "*.windows.com"
+        set type fqdn
+        set fqdn "*.windows.com"
+    next
+    edit "*.teamviewer.com"
+        set type fqdn
+        set fqdn "*.teamviewer.com"
+    next
+    edit "*.windows.net"
+        set type fqdn
+        set fqdn "*.windows.net"
+    next
+    edit "*.upl-ltd.com"
+        set type fqdn
+        set fqdn "*.upl-ltd.com"
+    next
+    edit "*.uplonline.com"
+        set type fqdn
+        set fqdn "*.uplonline.com"
+    next
+    edit "N-8.36.116.0/24"
+        set subnet 8.36.116.0 255.255.255.0
+    next
+    edit "N-8.39.144.0/24"
+        set subnet 8.39.144.0 255.255.255.0
+    next
+    edit "N-31.186.239.0/24"
+        set subnet 31.186.239.0 255.255.255.0
+    next
+    edit "N-74.217.93.0/24"
+        set subnet 74.217.93.0 255.255.255.0
+    next
+    edit "N-103.219.79.0/24"
+        set subnet 103.219.79.0 255.255.255.0
+    next
+    edit "N-163.116.128.0/17"
+        set subnet 163.116.128.0 255.255.128.0
+    next
+    edit "reportingcollector.upl-ltd.com"
+        set type fqdn
+        set fqdn "reportingcollector.upl-ltd.com"
+    next
+    edit "Uglbcv01.uplonline.com"
+        set type fqdn
+        set fqdn "Uglbcv01.uplonline.com"
+    next
+    edit "Ummumcv01.uplonline.com"
+        set type fqdn
+        set fqdn "Ummumcv01.uplonline.com"
+    next
+edit "R-10.100.0.21-10.100.0.22"
+        set type iprange
+        set start-ip 10.100.0.21
+        set end-ip 10.100.0.22
+    next
+edit "R-10.100.0.201-10.100.0.203"
+        set type iprange
+        set start-ip 10.100.0.201
+        set end-ip 10.100.0.203
+    next
+    edit "R-172.23.10.27-172.23.10.30"
+        set type iprange
+        set start-ip 172.23.10.27
+        set end-ip 172.23.10.30
+    next
+edit "R-192.168.21.176-192.168.21.177"
+        set type iprange
+        set start-ip 192.168.21.176
+        set end-ip 192.168.21.177
+    next
+edit "H-192.168.28.71"
+        set subnet 192.168.28.71 255.255.255.255
+    next
+edit "H-10.23.57.199"
+        set subnet 10.23.57.199 255.255.255.255
+    next
+edit "H-8.8.8.8"
+        set subnet 8.8.8.8 255.255.255.255
+    next
+edit "H-8.8.4.4"
+        set subnet 8.8.4.4 255.255.255.255
+    next
+edit "dns.google.com"
+        set type fqdn
+        set fqdn "dns.google.com"
+    next
+edit "H-192.168.32.64"
+        set subnet 192.168.32.64 255.255.255.255
+    next
+end
+
+config firewall service custom
+edit "TCP-10003"
+        set tcp-portrange 10003
+    next
+edit "TCP-10005-10006"
+        set tcp-portrange 10005-10006
+    next
+edit "TCP-34390"
+        set tcp-portrange 34390
+    next
+edit "TCP-8400-8403"
+        set tcp-portrange 8400-8403
+    next
+end
+
 config firewall policy
 edit 90
         set name "Forescout-1"
