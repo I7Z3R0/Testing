@@ -1,29 +1,182 @@
+config firewall policy
+edit 90
+        set name "Forescout-1"
+        set srcintf "Quarantine"
+        set dstintf "internal3"
+        set srcaddr "N-10.254.126.0/24"
+        set dstaddr "R-192.168.21.176-192.168.21.177" "R-10.100.0.21-10.100.0.22"
+        set action accept
+        set schedule "always"
+        set service "DNS" "LDAP"
+        set logtraffic all
+    next
+edit 91
+        set name "Forescout-1"
+        set srcintf "Remediation"
+        set dstintf "internal3"
+        set srcaddr "N-10.254.127.0/24"
+        set dstaddr "R-192.168.21.176-192.168.21.177" "R-10.100.0.21-10.100.0.22"
+        set action accept
+        set schedule "always"
+        set service "DNS" "LDAP"
+        set logtraffic all
+    next
+    edit 92
+        set name "Forescout-2"
+        set srcintf "Quarantine"
+        set dstintf "internal3"
+        set srcaddr "N-10.254.126.0/24"
+        set dstaddr "H-192.168.28.71" "H-10.23.57.199" "R-10.100.0.201-10.100.0.203" "R-172.23.10.27-172.23.10.30"
+        set action accept
+        set schedule "always"
+        set service "TCP-10003" "TCP-10005-10006" "HTTPS"
+        set logtraffic all
+    next
+    edit 93
+        set name "Forescout-2"
+        set srcintf "Remediation"
+        set dstintf "internal3"
+        set srcaddr "N-10.254.127.0/24"
+        set dstaddr "H-192.168.28.71" "H-10.23.57.199" "R-10.100.0.201-10.100.0.203" "R-172.23.10.27-172.23.10.30"
+        set action accept
+        set schedule "always"
+        set service "TCP-10003" "TCP-10005-10006" "HTTPS"
+        set logtraffic all
+    next
+    edit 94
+        set name "Forescout-3"
+        set srcintf "Remediation"
+        set dstintf "internal3"
+        set srcaddr "N-10.254.127.0/24"
+        set dstaddr "H-192.168.32.64"
+        set action accept
+        set schedule "always"
+        set service "HTTPS"
+        set logtraffic all
+    next
+    edit 95
+        set name "Forescout-4"
+        set srcintf "internal3"
+        set dstintf "Quarantine"
+        set srcaddr "H-192.168.28.71" "H-10.23.57.199" "R-10.100.0.201-10.100.0.203" "R-172.23.10.27-172.23.10.30"
+        set dstaddr "N-10.254.126.0/24"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+        next
+    edit 96
+        set name "Forescout-4"
+        set srcintf "internal3"
+        set dstintf "Remediation"
+        set srcaddr "H-192.168.28.71" "H-10.23.57.199" "R-10.100.0.201-10.100.0.203" "R-172.23.10.27-172.23.10.30"
+        set dstaddr "N-10.254.127.0/24"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+        next
+edit 97
+        set name "Forescout-5"
+        set srcintf "Remediation"
+        set dstintf "wan1"
+        set srcaddr "N-10.254.127.0/24"
+        set dstaddr "dns.google.com" "H-8.8.8.8" "H-8.8.4.4"
+        set action accept
+        set schedule "always"
+        set service "DNS" "HTTPS"
+        set logtraffic all
+        set nat enable
+    next
+edit 98
+        set name "Forescout-6"
+        set srcintf "Remediation"
+        set dstintf "wan1"
+        set srcaddr "N-10.254.127.0/24"
+        set dstaddr "*.goskope.com" "*.google.com" "*.trendmicro.com" "*.azureedge.net" "*.windows.com" "*.windows.net" "*.upl-ltd.com" "H-8.8.4.4" "H-8.8.8.8" "*.uplonline.com" "N-8.36.116.0/24" "N-8.39.144.0/24" "N-31.186.239.0/24" "N-74.217.93.0/24" "N-103.219.79.0/24" "N-163.116.128.0/17" "*.teamviewer.com"
+        set action accept
+        set schedule "always"
+        set service "HTTPS"
+        set logtraffic all
+        set nat enable
+    next
+    edit 99
+        set name "Forescout-7"
+        set srcintf "Remediation"
+        set dstintf "wan1"
+        set srcaddr "N-10.254.127.0/24"
+        set dstaddr "Uglbcv01.uplonline.com" "Ummumcv01.uplonline.com"
+        set action accept
+        set schedule "always"
+        set service "TCP-8400-8403"
+        set logtraffic all
+        set nat enable
+    next
+    edit 100
+        set name "Forescout-8"
+        set srcintf "Remediation"
+        set dstintf "wan1"
+        set srcaddr "N-10.254.127.0/24"
+        set dstaddr "reportingcollector.upl-ltd.com"
+        set action accept
+        set schedule "always"
+        set service "TCP-34390"
+        set logtraffic all
+        set nat enable
+    next
+    edit 101
+        set name "Forescout-9"
+        set srcintf "Quarantine"
+        set dstintf "wan1"
+        set srcaddr "N-10.254.126.0/24"
+        set internet-service enable
+        set internet-service-name "Microsoft-Skype_Teams" "Microsoft-Teams.Published.Worldwide.Allow" "Microsoft-Teams.Published.Worldwide.Optimize" "TeamViewer-DNS" "TeamViewer-FTP" "TeamViewer-ICMP" "TeamViewer-Inbound_Email" "TeamViewer-LDAP" "TeamViewer-NetBIOS.Name.Service" "TeamViewer-NetBIOS.Session.Service" "TeamViewer-NTP" "TeamViewer-Other" "TeamViewer-Outbound_Email" "TeamViewer-RTMP" "TeamViewer-SSH" "TeamViewer-TeamViewer" "TeamViewer-Web"
+        set action accept
+        set schedule "always"
+        set logtraffic all
+        set nat enable
+    next
+     edit 102
+        set name "Forescout-9"
+        set srcintf "Remediation"
+        set dstintf "wan1"
+        set srcaddr "N-10.254.127.0/24"
+        set internet-service enable
+        set internet-service-name "Microsoft-Skype_Teams" "Microsoft-Teams.Published.Worldwide.Allow" "Microsoft-Teams.Published.Worldwide.Optimize" "TeamViewer-DNS" "TeamViewer-FTP" "TeamViewer-ICMP" "TeamViewer-Inbound_Email" "TeamViewer-LDAP" "TeamViewer-NetBIOS.Name.Service" "TeamViewer-NetBIOS.Session.Service" "TeamViewer-NTP" "TeamViewer-Other" "TeamViewer-Outbound_Email" "TeamViewer-RTMP" "TeamViewer-SSH" "TeamViewer-TeamViewer" "TeamViewer-Web"
+        set action accept
+        set schedule "always"
+        set logtraffic all
+        set nat enable
+    next
+    end
+
+
+    ------------------------
+
+
+    configure terminal
+snmp-server group UPL v3 auth read fssnmp write fssnmp
+snmp-server group UPL v3 priv context vlan match prefix
+snmp-server user fssnmp UPL v3 auth sha Up12023N@C priv aes 128 Up12023N@C
+snmp-server view fssnmp iso included
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps snmp linkdown linkup
+snmp-server host 10.100.0.203 version 3 priv fssnmp mac-notification
+snmp-server host 172.23.10.29 version 3 priv fssnmp mac-notification
+snmp-server host 172.23.10.30 version 3 priv  fssnmp mac-notification
+
+
+config terminal
 vlan 812
 name QUARANTINE
-exit
-interface Vlan812
-ip address 10.254.200.254 255.255.255.0
 exit
 vlan 813
 name Remediation
 exit
-interface Vlan813
-ip address 10.254.201.254 255.255.255.0
+
+Range- command
+interface range GigabitEthernet2/0/1-52
+snmp trap mac-notification change added 
+snmp trap mac-notification change removed
+snmp trap link-status permit duplicates
 exit
-service dhcp
-ip dhcp pool QUARANTINE
-default-router 10.254.200.254
-network 10.254.200.0 255.255.255.0
-domain-name upl.com
-dns-server 10.100.0.22 192.168.21.176 8.8.8.8
-exit
-ip dhcp pool Remediation
-default-router 10.254.201.254
-network 10.254.201.0 255.255.255.0
-domain-name upl.com
-dns-server 10.100.0.22 192.168.21.176 8.8.8.8
-exit
-ip dhcp excluded-address 10.254.200.0 10.254.200.10
-ip dhcp excluded-address 10.254.200.250 10.254.200.254
-ip dhcp excluded-address 10.254.201.0 10.254.201.10
-ip dhcp excluded-address 10.254.201.250 10.254.201.254
