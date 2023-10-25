@@ -1,1 +1,10 @@
-pCgWZanFN6VxTtN4
+configure terminal
+snmp-server group UPL v3 auth read fssnmp write fssnmp
+snmp-server group UPL v3 priv context vlan match prefix
+snmp-server user fssnmp UPL v3 auth sha Up12023N@C priv aes 128 Up12023N@C
+snmp-server view fssnmp iso included
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps snmp linkdown linkup
+snmp-server host 10.100.0.203 version 3 priv fssnmp mac-notification
+snmp-server host 172.23.10.29 version 3 priv fssnmp mac-notification
+snmp-server host 172.23.10.30 version 3 priv  fssnmp mac-notification
